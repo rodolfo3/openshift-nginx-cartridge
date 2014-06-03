@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -x
+
+DEST_DIR=$OPENSHIFT_DATA_DIR/nginx
+
+case "$1" in
+    start)
+        echo "starting..."
+        $DEST_DIR/sbin/nginx
+    ;;
+    stop)
+        echo "stopping..."
+        $DEST_DIR/sbin/nginx -s stop
+    ;;
+    restart)
+        echo "restarting..."
+        $DEST_DIR/sbin/nginx -s stop
+        sleep 3
+        $DEST_DIR/sbin/nginx
+    ;;
+esac

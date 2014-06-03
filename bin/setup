@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -x
+
+DEST_DIR=$OPENSHIFT_DATA_DIR/nginx
+TMP_DIR=$OPENSHIFT_TMP_DIR/nginx-compiling
+
+NGINX_VERSION=1.7.1
+
+set -eo pipefail
+
+mkdir -p $DEST_DIR
+mkdir -p $TMP_DIR
+
+cd $TMP_DIR
+wget -c http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz
+tar zxf nginx-$NGINX_VERSION.tar.gz
+cd nginx-$NGINX_VERSION
+./configure --prefix=$DEST_DIR --without-http_rewrite_module
+make
+make install

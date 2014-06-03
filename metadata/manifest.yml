@@ -1,0 +1,45 @@
+Name: nginx
+Cartridge-Short-Name: nginx
+Version: 1.7.1
+Cartridge-Version: 0.0.1
+Cartridge-Vendor: rodolfo3
+Website: https://github.com/rodolfo3/openshift-nginx-cartridge
+Source-Url: https://github.com/rodolfo3/openshift-nginx-cartridge.git
+Categories:
+    - service
+    - nginx
+    - web_framework
+Provides:
+    - nginx-1.7
+    - nginx
+    - nginx(version) = 1.7.1
+Scaling:
+    Min: 1
+    Max: -1
+Cart-Data:
+    - Key: OPENSHIFT_NGINX_PORT
+      Type: environment
+      Description: "Internal port for web-framework"
+    - Key: OPENSHIFT_NGINX_IP
+      Type: environment
+      Description: "Internal IP address"
+Publishes:
+  get-doc-root:
+    Type: "FILESYSTEM:doc-root"
+  publish-http-url:
+    Type: "NET_TCP:httpd-proxy-info"
+  publish-gear-endpoint:
+    Type: "NET_TCP:gear-endpoint-info"
+Endpoints:
+    - Private-IP-Name:      IP
+      Private-Port-Name:    PORT
+      Private-Port:          8080
+      Public-Port-Name:     PROXY_PORT
+      Mappings:
+            - Frontend: ""
+              Backend:  ""
+              Options:  { websocket: true }
+            - Frontend: "/health"
+              Backend:  ""
+              Options:  { health: true }
+Install-Build-Required: false
