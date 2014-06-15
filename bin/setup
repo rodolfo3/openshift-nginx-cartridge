@@ -3,7 +3,7 @@
 echo "setup $*"
 set -x
 
-DEST_DIR=$OPENSHIFT_DATA_DIR/nginx
+DEST_DIR=$OPENSHIFT_NGINX_DIR
 TMP_DIR=$OPENSHIFT_TMP_DIR/nginx-compiling
 
 NGINX_VERSION=1.7.1
