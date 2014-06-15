@@ -1,5 +1,6 @@
 #!/bin/bash
 
+echo "setup $*"
 set -x
 
 DEST_DIR=$OPENSHIFT_DATA_DIR/nginx
@@ -19,3 +20,5 @@ cd nginx-$NGINX_VERSION
 ./configure --prefix=$DEST_DIR --without-http_rewrite_module
 make
 make install
+
+echo "== end setup=="

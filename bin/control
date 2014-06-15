@@ -1,5 +1,6 @@
 #!/bin/bash
 
+echo "control $*"
 set -x
 
 DEST_DIR=$OPENSHIFT_DATA_DIR/nginx
@@ -24,4 +25,9 @@ case "$1" in
         sleep 3
         $DEST_DIR/sbin/nginx
     ;;
+    *)
+        echo "what? $1"
+    ;;
 esac
+
+echo "== end control =="
