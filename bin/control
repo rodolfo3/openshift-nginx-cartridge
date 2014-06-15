@@ -11,7 +11,12 @@ case "$1" in
     ;;
     stop)
         echo "stopping..."
-        $DEST_DIR/sbin/nginx -s stop
+        if [ -f $DEST_DIR/logs/nginx.pid ]
+        then
+            $DEST_DIR/sbin/nginx -s stop
+        else
+            echo "Nginx not running, pid file not found"
+        fi
     ;;
     restart)
         echo "restarting..."
