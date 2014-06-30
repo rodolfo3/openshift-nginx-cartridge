@@ -3,7 +3,7 @@
 echo "control $*"
 set -x
 
-DEST_DIR=$OPENSHIFT_DATA_DIR/nginx
+DEST_DIR=$OPENSHIFT_NGINX_DIR
 
 case "$1" in
     start)
