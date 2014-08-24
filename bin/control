@@ -4,10 +4,16 @@ echo "control $*"
 set -x
 
 DEST_DIR=$OPENSHIFT_NGINX_DIR
+CONFS_DIR=$OPENSHIFT_REPO_DIR
 
 case "$1" in
     start)
         echo "starting..."
+        for i in `ls $CONFS_DIR/*.conf.erb`
+        do
+            OUT=`echo $i | sed 's/.erb$//'`
+            erb $i > $OUT
+        done
         $DEST_DIR/sbin/nginx
     ;;
     stop)

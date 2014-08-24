@@ -1,7 +1,3 @@
-env IP=<%= ENV['OPENSHIFT_NGINX_IP'] %>;
-env PORT=<%= ENV['OPENSHIFT_NGINX_PORT'] %>;
-env REPO_ROOT=<%= ENV['OPENSHIFT_REPO_DIR'] %>;
-
 worker_processes  1;
 
 #error_log  logs/error.log;
@@ -27,11 +23,8 @@ http {
 
     gzip  on;
 
-    include $ENV{"REPO_ROOT"}*/nginx.conf;
-
     server {
-        listen       $ENV{"IP"}:$ENV{"PORT"};
-        server_name  localhost;
+        listen       <%= ENV['OPENSHIFT_NGINX_IP'] %>:<%= ENV['OPENSHIFT_NGINX_PORT'] %>;
 
         location / {
             root   html;
@@ -48,4 +41,6 @@ http {
         }
 
     }
+
+    include <%= ENV['OPENSHIFT_REPO_DIR'] %>/*.nginx.conf;
 }
