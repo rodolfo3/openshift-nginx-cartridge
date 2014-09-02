@@ -9,7 +9,7 @@ CONFS_DIR=$OPENSHIFT_REPO_DIR
 case "$1" in
     start)
         echo "starting..."
-        for i in `ls $CONFS_DIR/*.conf.erb`
+        for i in `ls $CONFS_DIR/*.nginx.conf.erb`
         do
             OUT=`echo $i | sed 's/.erb$//'`
             erb $i > $OUT
@@ -30,6 +30,14 @@ case "$1" in
         $DEST_DIR/sbin/nginx -s stop
         sleep 3
         $DEST_DIR/sbin/nginx
+    ;;
+    post-deploy)
+        for i in `ls $CONFS_DIR/*.nginx.conf.erb`
+        do
+            OUT=`echo $i | sed 's/.erb$//'`
+            erb $i > $OUT
+        done
+        $DEST_DIR/sbin/nginx -s reload
     ;;
     *)
         echo "what? $1"
